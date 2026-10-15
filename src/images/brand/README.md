@@ -1,5 +1,12 @@
-# Official artwork
+# Official Azul Marino artwork
 
-Place the supplied full logo here as `logo.png`, `logo.jpg`, `logo.webp` or `logo.svg`, and the separate shoe symbol as `symbol.png`, `symbol.jpg`, `symbol.webp` or `symbol.svg`. Use one file per role. The homepage imports the original artwork through Astro assets, preserving its aspect ratio. The symbol is used as the favicon.
+Original files from the user-supplied `assets1.zip` are preserved unchanged in `assets/brand/logo.jpeg` (`MARCA_PRINCIPAL.jpeg`) and `assets/brand/symbol.jpeg` (`SIMBOLO_1.jpeg`).
 
-The image previews in chat were not exposed as downloadable workspace files during implementation. No replacement artwork has been generated. Until the files are supplied, the page retains an ordinary brand heading and omits the favicon.
+The PNGs are derived from those files without tracing, redrawing, changing typography, or recoloring the blue artwork:
+
+- Remove the light neutral JPEG background (pixels with all RGB channels >200 and channel spread <20 become transparent).
+- Crop to the remaining artwork bounds. Preserve the original pixel dimensions and proportions, and add 24px padding.
+- Center the shoe symbol on a square transparent canvas.
+- Produce `public/favicon.png` at 64×64 with Lanczos downsampling, and `public/favicon.ico` with 16, 32, 48 and 64px sizes.
+
+`logo.png` is imported through Astro assets for the homepage. `symbol.png` is the full-resolution transparent source for the favicon. Original JPEGs are retained for future asset preparation; no generated artwork is used.

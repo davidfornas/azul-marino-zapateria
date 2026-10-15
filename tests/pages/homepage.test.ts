@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { parse } from 'node-html-parser';
 
@@ -49,6 +49,20 @@ describe('Azul Marino landing page', () => {
       expect(link.text).toContain('se abre en otra pestaña');
     }
     expect(page.querySelectorAll('[aria-disabled="true"]')).toHaveLength(0);
+  });
+
+  it('renders the official logo and valid PNG/ICO favicon files', () => {
+    const image = page.querySelector('img.hola__logo');
+    expect(image?.getAttribute('alt')).toBe('Azul Marino Zapatería');
+    expect(Number(image?.getAttribute('width'))).toBeGreaterThan(0);
+    expect(Number(image?.getAttribute('height'))).toBeGreaterThan(0);
+    const src = image?.getAttribute('src') ?? '';
+    expect(src).toMatch(/^\/_astro\//);
+    expect(existsSync(join(dist, src))).toBe(true);
+    expect(page.querySelector('h1')?.classNames).toContain('visually-hidden');
+    expect(page.querySelector('link[type="image/png"]')?.getAttribute('href')).toBe('/favicon.png');
+    expect(readFileSync(join(dist, 'favicon.png')).subarray(0, 8)).toEqual(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+    expect(readFileSync(join(dist, 'favicon.ico')).subarray(0, 4)).toEqual(Buffer.from([0, 0, 1, 0]));
   });
 
   it('ships no old identity, contact info or tracking', () => {

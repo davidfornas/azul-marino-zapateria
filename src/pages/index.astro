@@ -22,8 +22,8 @@ const links = [
   <main id="main" class="hola">
     <div class="hola__inner">
       <header class="hola__header">
-        <h1 class:list={{ 'visually-hidden': !!logo }}>{site.brand.name}</h1>
-        {logo && <Image src={logo} alt={site.brand.name} class="hola__logo" loading="eager" fetchpriority="high" />}
+        <h1 class="visually-hidden">{site.brand.name}</h1>
+        <Image src={logo} alt={site.brand.name} class="hola__logo" loading="eager" fetchpriority="high" />
         <p class="hola__slogan">{site.brand.tagline}</p>
       </header>
 

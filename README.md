@@ -32,6 +32,6 @@ Tests build the site before execution. The suite checks the single route, contac
 
 Reusable components remain available in `src/components`. Legacy photography components/content are not imported by the landing page. Do not import them into active routes without adapting their assets and content.
 
-Official logo files are still required: see `src/images/brand/README.md`. Chat image previews were not exposed as local files. The page automatically uses the supplied logo and symbol once those files are available; no substitute artwork has been created.
+Official logo and shoe-symbol PNGs are derived from the supplied JPEGs, with their proportions and blue artwork preserved. Original JPEGs are kept in `assets/brand/`; preparation details are in `src/images/brand/README.md`. PNG and multi-size ICO favicons are served from `public/`.
 
 The sitemap integration remains installed but is inactive until a domain is supplied. Dependency versions are unchanged. The GitHub Pages workflow is manual-only; automatic deployment is disabled. Nothing has been deployed as part of this migration.
