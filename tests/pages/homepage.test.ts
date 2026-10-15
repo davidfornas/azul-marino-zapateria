@@ -32,22 +32,28 @@ describe('Azul Marino landing page', () => {
     expect(page.querySelector('script[type="application/ld+json"]')).toBeNull();
   });
 
-  it('provides clearly unavailable link placeholders without fake destinations', () => {
-    const links = page.querySelectorAll('nav [role="link"]');
-    expect(links).toHaveLength(3);
-    expect(links.map((link) => link.text.trim().replace(/\s+/g, ' '))).toEqual([
-      'Contacto Próximamente', 'Dónde encontrarnos Próximamente', 'Redes sociales Próximamente',
+  it('renders the official slogan, address and supplied contact links', () => {
+    expect(page.text).toContain('Más de 30 años de calidad, confianza y estilo.');
+    expect(page.querySelector('address')?.text).toContain('Calle Maestro Ripollés, 16');
+    expect(page.querySelector('address')?.text).toContain('12003 Castellón de la Plana, Spain');
+    const hrefs = page.querySelectorAll('nav a').map((link) => link.getAttribute('href'));
+    expect(hrefs).toEqual([
+      'https://wa.me/34641606210?text=' + encodeURIComponent('Hola, he visto vuestra página web y me gustaría recibir información sobre vuestro calzado.'),
+      'https://www.instagram.com/azulmarinozapateria/',
+      'https://maps.app.goo.gl/QNKenuSytVNHQoxv5?g_st=aw',
+      'tel:+34964039447',
     ]);
-    for (const link of links) {
-      expect(link.getAttribute('aria-disabled')).toBe('true');
-      expect(link.hasAttribute('href')).toBe(false);
+    expect(page.querySelector('.hola__reel')?.getAttribute('href')).toBe('https://www.instagram.com/p/DR4ISenigcE/?mdxt=OWo2bG91b3FrZ2Ez');
+    for (const link of page.querySelectorAll('a[target="_blank"]')) {
+      expect(link.getAttribute('rel')).toContain('noopener');
+      expect(link.text).toContain('se abre en otra pestaña');
     }
-    expect(page.querySelectorAll('a[href]').map((link) => link.getAttribute('href'))).toEqual(['#main']);
+    expect(page.querySelectorAll('[aria-disabled="true"]')).toHaveLength(0);
   });
 
-  it('ships no old identity, contact info, tracking, or image references', () => {
-    expect(html).not.toMatch(/sandra|cabedo|604895320|sandracabedo\.es|wa\.me|ig\.me|instagram\.com|googletagmanager|google-analytics/i);
-    expect(page.querySelectorAll('img, picture, script[src]')).toHaveLength(0);
+  it('ships no old identity, contact info or tracking', () => {
+    expect(html).not.toMatch(/sandra|cabedo|604895320|sandracabedo\.es|googletagmanager|google-analytics/i);
+    expect(page.querySelectorAll('script[src], iframe')).toHaveLength(0);
     expect(readFileSync(join(dist, 'robots.txt'), 'utf8')).not.toContain('Sitemap:');
   });
 });

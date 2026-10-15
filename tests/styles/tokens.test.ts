@@ -77,9 +77,17 @@ describe('tokens.css — color luminance, saturation, and contrast', () => {
     expect(relativeLuminance(parseHex(bg))).toBeGreaterThanOrEqual(0.9);
   });
 
-  it('secondary surfaces have HSV saturation <= 20% (Req 1.2)', () => {
-    expect(hsvSaturation(parseHex(surface))).toBeLessThanOrEqual(0.2);
-    expect(hsvSaturation(parseHex(surface2))).toBeLessThanOrEqual(0.2);
+  it('uses the official ivory, sand, blue and teal palette', () => {
+    expect(bg).toBe('#FFF7F3');
+    expect(surface2).toBe('#E8CAB0');
+    expect(text).toBe('#274193');
+    expect(textSecondary).toBe('#046180');
+  });
+
+  it('button foregrounds meet AA contrast on blue, teal and sand', () => {
+    expect(contrastRatio(bg, text)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(bg, textSecondary)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(text, surface2)).toBeGreaterThanOrEqual(4.5);
   });
 
   it('main text token has >= 4.5:1 contrast against the background (Req 1.3, 17.1)', () => {
