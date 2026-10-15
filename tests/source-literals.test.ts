@@ -77,9 +77,9 @@ collectFiles(path.join(projectRoot, 'scripts'), sourceFiles);
 collectRootConfigFiles(sourceFiles);
 
 describe('no hardcoded base or phone literal in source', () => {
-  it('keeps contact details empty until supplied', () => {
-    expect(site.whatsapp.phone).toBe('');
-    expect(site.instagram.profileUrl).toBe('');
+  it('uses the supplied contact details without inventing review links', () => {
+    expect(site.whatsapp.phone).toBe('+34 641 60 62 10');
+    expect(site.instagram.profileUrl).toBe('https://www.instagram.com/azulmarinozapateria/');
     expect(site.google.reviewsUrl).toBe('');
   });
 

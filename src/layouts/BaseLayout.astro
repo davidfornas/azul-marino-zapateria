@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/url';
 import Seo, { type SeoProps } from '../components/Seo.astro';
 import '../styles/tokens.css';
 import '../styles/base.css';
@@ -17,6 +18,8 @@ const { title, description, path, ogImage, activePath } = Astro.props as BaseLay
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link rel="icon" type="image/png" sizes="64x64" href={withBase('/favicon.png')} />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48 64x64" href={withBase('/favicon.ico')} />
     <Seo title={title} description={description} path={path} ogImage={ogImage} />
   </head>
   <body data-active-path={activePath}>

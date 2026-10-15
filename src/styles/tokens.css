@@ -1,19 +1,19 @@
-/* Shared tokens retained as a temporary palette; brand identity is pending. */
+/* Azul Marino Zapatería — official palette. */
 
 :root {
   /* --- Palette --- */
-  --color-bg: #FAF7F2;
-  --color-surface: #EFE9E0;
-  --color-surface-2: #E8DFD2;
+  --color-bg: #FFF7F3;
+  --color-surface: #FFF7F3;
+  --color-surface-2: #E8CAB0;
 
-  --color-text: #2B2622;
-  --color-text-secondary: #6B625A;
+  --color-text: #274193;
+  --color-text-secondary: #046180;
 
-  --color-accent: #9A5F3B;
-  --color-accent-strong: #83502F;
+  --color-accent: #274193;
+  --color-accent-strong: #046180;
 
   /* --- Typography families (Req 1.5) --- */
-  --font-title: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-title: "Helvetica Neue", Arial, system-ui, sans-serif;
   --font-body: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
 
   /* --- Spacing scale --- */
