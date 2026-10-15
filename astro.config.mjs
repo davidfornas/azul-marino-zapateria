@@ -1,18 +1,8 @@
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 
-// Custom domain:
-const SITE = 'https://sandracabedo.es';
-const BASE = '/';
-
-// GitHub Pages (subpath) — previous demo default:
-// const SITE = 'https://sandra-cabedo.github.io';
-// const BASE = '/sandra-cabedo-fotografia/';
-
+// Add site and sitemap integration once a real domain is supplied.
 export default defineConfig({
-  site: SITE,
-  base: BASE,
+  base: '/',
   output: 'static',
   trailingSlash: 'always',
-  integrations: [sitemap()],
 });

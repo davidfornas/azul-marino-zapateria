@@ -11,7 +11,7 @@ const projectRoot = fileURLToPath(new URL('..', import.meta.url));
 const BASE_LITERAL = '/sandra-cabedo-fotografia/';
 // Read the phone from the single config source instead of hardcoding it here,
 // so this test does not itself become a place the phone literal lives.
-const PHONE_LITERAL = site.whatsapp.phone;
+const PHONE_LITERAL = '604895320';
 
 // Config exceptions: the one place each literal is legitimately allowed to live.
 // - astro.config.mjs owns the deployment `base`.
@@ -77,8 +77,10 @@ collectFiles(path.join(projectRoot, 'scripts'), sourceFiles);
 collectRootConfigFiles(sourceFiles);
 
 describe('no hardcoded base or phone literal in source', () => {
-  it('has a non-empty phone literal to check against', () => {
-    expect(PHONE_LITERAL.length).toBeGreaterThan(0);
+  it('keeps contact details empty until supplied', () => {
+    expect(site.whatsapp.phone).toBe('');
+    expect(site.instagram.profileUrl).toBe('');
+    expect(site.google.reviewsUrl).toBe('');
   });
 
   it('found source files to scan', () => {
