@@ -2,6 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { parse } from 'node-html-parser';
+import astroConfig from '../../astro.config.mjs';
+
+const base = astroConfig.base;
 
 const dist = resolve('dist');
 const html = readFileSync(join(dist, 'index.html'), 'utf8');
@@ -57,12 +60,27 @@ describe('Azul Marino landing page', () => {
     expect(Number(image?.getAttribute('width'))).toBeGreaterThan(0);
     expect(Number(image?.getAttribute('height'))).toBeGreaterThan(0);
     const src = image?.getAttribute('src') ?? '';
-    expect(src).toMatch(/^\/_astro\//);
-    expect(existsSync(join(dist, src))).toBe(true);
+    expect(src.startsWith(`${base}_astro/`)).toBe(true);
+    expect(existsSync(join(dist, src.slice(base.length)))).toBe(true);
     expect(page.querySelector('h1')?.classNames).toContain('visually-hidden');
-    expect(page.querySelector('link[type="image/png"]')?.getAttribute('href')).toBe('/favicon.png');
+    expect(page.querySelector('link[type="image/png"]')?.getAttribute('href')).toBe(`${base}favicon.png`);
     expect(readFileSync(join(dist, 'favicon.png')).subarray(0, 8)).toEqual(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
     expect(readFileSync(join(dist, 'favicon.ico')).subarray(0, 4)).toEqual(Buffer.from([0, 0, 1, 0]));
+  });
+
+  it('prefixes deployed stylesheets and assets with the GitHub Pages project path', () => {
+    expect(base).toBe('/azul-marino-zapateria/');
+    const stylesheets = page.querySelectorAll('link[rel="stylesheet"]');
+    expect(stylesheets.length).toBeGreaterThan(0);
+    const urls = [
+      ...stylesheets.map((link) => link.getAttribute('href')!),
+      ...page.querySelectorAll('link[rel="icon"]').map((link) => link.getAttribute('href')!),
+      ...page.querySelectorAll('img[src]').map((image) => image.getAttribute('src')!),
+    ];
+    for (const url of urls) {
+      expect(url.startsWith(base), `missing project prefix: ${url}`).toBe(true);
+      expect(existsSync(join(dist, url.slice(base.length))), `missing built asset: ${url}`).toBe(true);
+    }
   });
 
   it('ships no old identity, contact info or tracking', () => {

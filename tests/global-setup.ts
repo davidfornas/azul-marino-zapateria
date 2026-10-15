@@ -11,8 +11,13 @@ export default function setup(): void {
   const here = dirname(fileURLToPath(import.meta.url));
   const projectRoot = resolve(here, '..');
   rmSync(join(projectRoot, 'dist'), { recursive: true, force: true });
+  // Vitest's global-setup process can inject BASE_URL=/ even when workers
+  // have a configured base. Let the real Astro config own the child build.
+  const buildEnv = { ...process.env };
+  delete buildEnv.BASE_URL;
   execFileSync('npm', ['run', 'build'], {
     cwd: projectRoot,
+    env: buildEnv,
     stdio: 'inherit',
     shell: process.platform === 'win32',
   });

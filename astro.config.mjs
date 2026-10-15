@@ -1,8 +1,9 @@
 import { defineConfig } from 'astro/config';
 
-// Add site and sitemap integration once a real domain is supplied.
+// GitHub Pages project sites are served below the repository path.
+// Add site and sitemap integration once a production domain is supplied.
 export default defineConfig({
-  base: '/',
+  base: '/azul-marino-zapateria/',
   output: 'static',
   trailingSlash: 'always',
 });
