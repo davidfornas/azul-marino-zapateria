@@ -1,11 +1,11 @@
 {
-  "name": "sandra-cabedo-fotografia",
+  "name": "azul-marino-zapateria",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Sitio estático de fotografía de Sandra Cabedo (Castellón), construido con Astro.",
+  "description": "Página de presentación de Azul Marino Zapatería, construida con Astro.",
   "engines": {
-    "node": ">=20 <21"
+    "node": ">=22.19.0 <23"
   },
   "scripts": {
     "dev": "astro dev",

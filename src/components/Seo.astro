@@ -10,19 +10,19 @@ export interface SeoProps {
 
 const { title, description, path, ogImage } = Astro.props as SeoProps;
 
-const siteOrigin = Astro.site?.toString() ?? Astro.url.origin;
-const canonicalUrl = absoluteUrl(path, siteOrigin);
-const ogImageUrl = ogImage ? absoluteUrl(ogImage, siteOrigin) : undefined;
+const siteOrigin = Astro.site?.toString();
+const canonicalUrl = siteOrigin ? absoluteUrl(path, siteOrigin) : undefined;
+const ogImageUrl = ogImage && siteOrigin ? absoluteUrl(ogImage, siteOrigin) : undefined;
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={canonicalUrl} />
+{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:url" content={canonicalUrl} />
+{canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
 <meta property="og:locale" content="es_ES" />
 {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
 

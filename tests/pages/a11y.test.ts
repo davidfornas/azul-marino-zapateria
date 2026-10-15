@@ -29,7 +29,6 @@ const distDir = join(projectRoot, 'dist');
 // Home page and one representative session page.
 const pages = [
   { name: 'Home', file: join(distDir, 'index.html') },
-  { name: 'Newborn session', file: join(distDir, 'newborn', 'index.html') },
 ] as const;
 
 function loadIntoDocument(html: string): void {

@@ -1,483 +1,129 @@
 ---
-import { getCollection } from 'astro:content';
-import PageLayout from '../layouts/PageLayout.astro';
-import Hero from '../components/Hero.astro';
-import SectionTitle from '../components/SectionTitle.astro';
-import SessionCard from '../components/SessionCard.astro';
-import Gallery from '../components/Gallery.astro';
-import ImageFrame from '../components/ImageFrame.astro';
-import WhatsAppCTA from '../components/WhatsAppCTA.astro';
-import InstagramCTA from '../components/InstagramCTA.astro';
-import XmasAnnouncement from '../components/XmasAnnouncement.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../config/site';
-import { withBase } from '../lib/url';
-import type { GalleryImage } from '../lib/gallery';
 
-import heroImage from '../images/sessions/newborn/IMG_1454.jpg';
-import portraitImage from '../images/sandra/IMG_2303.jpg';
-// import studioImage from '../images/mocks/mock-14.jpg';
-
-import portfolio01 from '../images/sessions/newborn/IMG_0851.jpg';
-import portfolio02 from '../images/sessions/newborn/IMG_1454.jpg';
-// import portfolio03 from '../images/mocks/mock-19.jpg';
-// import portfolio04 from '../images/mocks/mock-07.jpg';
-import portfolio05 from '../images/sessions/embarazo/IMG_9334.jpg';
-// import portfolio06 from '../images/mocks/mock-11.jpg';
-// import portfolio07 from '../images/mocks/mock-12.jpg';
-import portfolio08 from '../images/sessions/embarazo/IMG_9522.jpg';
-// import portfolio09 from '../images/mocks/mock-18.jpg';
-import portfolioFamilia from '../images/sessions/familia/IMG_0104.jpg';
-
-import portfolioOnly01 from '../images/sessions/portfolioOnly/IMG_0518.jpg';
-import portfolioOnly02 from '../images/sessions/portfolioOnly/IMG_0616.jpg';
-import portfolioOnly03 from '../images/sessions/portfolioOnly/IMG_0668.jpg';
-import portfolioOnly04 from '../images/sessions/portfolioOnly/IMG_0679.jpg';
-
-import portfolioFamilia07 from '../images/sessions/familia/07 copia.jpg';
-import portfolioCJ9605 from '../images/sessions/crecer-juntos/IMG_9605.jpg';
-import portfolioCJ0303 from '../images/sessions/crecer-juntos/IMG_0303.jpg';
-
-// import feed01 from '../images/mocks/mock-03.jpg';
-// import feed02 from '../images/mocks/mock-04.jpg';
-// import feed03 from '../images/mocks/mock-10.jpg';
-// import feed04 from '../images/mocks/mock-13.jpg';
-// import feed05 from '../images/mocks/mock-16.jpg';
-// import feed06 from '../images/mocks/mock-17.jpg';
-import feed01 from '../images/sessions/makingOff/2025-07-19 19.29.32.jpg';
-
-const seo = {
-  title: 'Sandra Cabedo Fotografía · Fotógrafo familiar en Castellón',
-  description:
-    'Fotografía familiar, newborn e infantil en Castellón y alrededores. ' +
-    'Sesiones naturales que conservan los recuerdos de vuestra familia y el crecer de los peques.',
-  path: '/',
-};
-
-const navOrder = site.nav.map((item) => item.path.replace(/\//g, ''));
-
-const sessionEntries = await getCollection('sessions');
-const sessions = sessionEntries
-  .map((entry) => ({
-    slug: entry.slug,
-    title: entry.data.title,
-    description: entry.data.description,
-    coverImage: entry.data.coverImage,
-    coverAlt: entry.data.coverAlt,
-  }))
-  .sort((a, b) => navOrder.indexOf(a.slug) - navOrder.indexOf(b.slug));
-
-const portfolioImages: GalleryImage[] = [
-  { src: portfolio01, alt: 'Recién nacido dormido acurrucado', orientation: 'portrait' },
-  { src: portfolio02, alt: 'Padres sosteniendo a su recién nacido', orientation: 'landscape' },
-  // { src: portfolio03, alt: 'Familia en un momento espontáneo al aire libre', orientation: 'portrait' },
-  // { src: portfolio04, alt: 'Niños jugando de forma espontánea en un día luminoso', orientation: 'landscape' },
-  { src: portfolio05, alt: 'Futura madre en un retrato sereno y cálido', orientation: 'portrait' },
-  // { src: portfolio06, alt: 'Retrato familiar en tonos suaves y naturales', orientation: 'portrait' },
-  // { src: portfolio07, alt: 'Momento de complicidad entre hermanos', orientation: 'landscape' },
-  { src: portfolio08, alt: 'Mujer embarazada junto a una ventana con luz natural', orientation: 'landscape' },
-  // { src: portfolio09, alt: 'Abrazo familiar captado con luz natural', orientation: 'landscape' },
-  { src: portfolioFamilia, alt: 'Familia disfrutando juntos en un instante espontáneo', orientation: 'landscape' },
-  { src: portfolioOnly01, alt: 'Retrato familiar en un momento cálido y natural', orientation: 'portrait' },
-  { src: portfolioOnly02, alt: 'Familia en un instante de complicidad y ternura', orientation: 'landscape' },
-  { src: portfolioOnly03, alt: 'Retrato de familia con luz natural y presencia auténtica', orientation: 'portrait' },
-  { src: portfolioOnly04, alt: 'Momento de familia capturado con luz suave', orientation: 'portrait' },
-  { src: portfolioFamilia07, alt: 'Retrato familiar en un instante íntimo y cercano', orientation: 'portrait' },
-  { src: portfolioCJ9605, alt: 'Momento familiar espontáneo con luz cálida', orientation: 'landscape' },
-  { src: portfolioCJ0303, alt: 'Retrato infantil en un momento de tranquilidad', orientation: 'portrait' },
-].map((image) => ({
-  ...image,
-  width: image.src.width,
-  height: image.src.height,
-}));
-
-const feedImages: { src: typeof portfolio01; alt: string }[] = [
-  { src: feed01, alt: 'Making of en el estudio de Sandra Cabedo Fotografía' },
-  // { src: feed02, alt: 'Padres sosteniendo con cuidado a su bebé' },
-  // { src: feed03, alt: 'Niños corriendo felices durante una sesión familiar' },
-  // { src: feed04, alt: 'Retrato cercano de una familia sonriendo' },
-  // { src: feed05, alt: 'Detalle de manos entrelazadas de una familia' },
-  // { src: feed06, alt: 'Momento tierno entre madre e hijo' },
-];
-
-const conoceMeHref = withBase('/sobre-mi/');
+const links = ['Contacto', 'Dónde encontrarnos', 'Redes sociales'];
 ---
 
-<PageLayout
-  title={seo.title}
-  description={seo.description}
-  path={seo.path}
+<BaseLayout
+  title={site.brand.name}
+  description="Bienvenido a Azul Marino Zapatería. Pronto compartiremos más información sobre nuestra tienda."
+  path="/"
   activePath="/"
 >
-  <Hero
-    image={heroImage}
-    alt="Padres sosteniendo a su recién nacido en un momento íntimo"
-    title="Fotografía familiar en Castellón"
-    subtitle="Embarazo, recién nacido, infancia y familia. Sesiones tranquilas, sin prisas y adaptadas al ritmo de los más pequeños."
-    ctaLabel="Ver sesiones"
-    ctaHref="#sessions"
-  />
+  <main id="main" class="hola">
+    <div class="hola__inner">
+      <header class="hola__header">
+        <p class="hola__label">Bienvenido a</p>
+        <h1>{site.brand.name}</h1>
+      </header>
 
-  <XmasAnnouncement />
+      <section class="hola__intro" aria-label="Presentación">
+        <p>Estamos preparando nuestra nueva web.</p>
+        <p>Pronto encontrarás aquí más información sobre nuestra zapatería.</p>
+      </section>
 
-  <section class="section presentation">
-    <div class="container presentation__inner">
-      <div class="presentation__text">
-        <SectionTitle as="h2" eyebrow="Sobre mí">Hola, soy Sandra</SectionTitle>
-        <p>
-          Soy fotógrafa familiar en Castellón y, sobre todo, me gusta que delante
-          de la cámara os sintáis cómodos.
-        </p>
-        <p>
-          No espero que los niños estén quietos ni que sepan posar. Les doy tiempo
-          para conocerme, jugar y coger confianza. Y a los mayores os voy guiando
-          para que tampoco tengáis que preocuparos de qué hacer.
-        </p>
-        <p>
-          Me gustan las fotografías sencillas y luminosas, sin demasiados elementos
-          alrededor, donde vosotros seáis los protagonistas.
-        </p>
-      </div>
-      <div class="presentation__media">
-        <ImageFrame
-          src={portraitImage}
-          alt="Retrato de Sandra, fotógrafa familiar en Castellón"
-          width={800}
-          height={1000}
-          loading="lazy"
-          sizes="(min-width: 768px) 40vw, 90vw"
-          class="presentation__portrait"
-        />
-      </div>
-      <p class="presentation__cta">
-        <a class="link-cta touch-target" href={conoceMeHref}>Conóceme un poco más</a>
-      </p>
-    </div>
-  </section>
-
-  <section id="sessions" class="section sessions">
-    <div class="container">
-      <SectionTitle as="h2" eyebrow="Experiencias" align="center">
-        ¿Qué momento quieres recordar?
-      </SectionTitle>
-      <p class="sessions__intro">
-        Puedes hacer tu sesión en mi estudio privado en Castellón o en exteriores.
-        Elige la etapa en la que estáis y te cuento cómo la plantearemos.
-      </p>
-      <div class="sessions__grid">
-        {
-          sessions.map((session) => (
-            <SessionCard
-              slug={session.slug}
-              title={session.title}
-              description={session.description}
-              coverImage={session.coverImage}
-              coverAlt={session.coverAlt}
-            />
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="section children">
-    <div class="container children__inner">
-      {/* mock image (studioImage) commented out:
-      <div class="children__media">
-        <ImageFrame
-          src={studioImage}
-          alt="Niña jugando relajada durante una sesión en un espacio cálido y acogedor"
-          loading="lazy"
-          sizes="(min-width: 768px) 45vw, 90vw"
-          class="children__image"
-        />
-      </div>
-      */}
-      <div class="children__text">
-        <SectionTitle as="h2" eyebrow="Con los peques">Ellos solo tienen que ser niños</SectionTitle>
-        <p>
-          No espero que un niño llegue al estudio y se ponga a posar. Primero nos
-          conocemos, pueden jugar, curiosear y coger confianza. La cámara puede esperar.
-        </p>
-        <p>
-          El estudio tiene una zona preparada para ellos, con juegos, minirocódromo y
-          una cama elástica que suele ser todo un éxito. Muchas veces ese rato es justo
-          lo que necesitan para olvidarse de la cámara y empezar la sesión mucho más relajados.
-        </p>
-        <p>
-          Y si necesitan parar durante la sesión, paramos. No pasa nada.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section portfolio">
-    <div class="container">
-      <SectionTitle as="h2" eyebrow="Portfolio" align="center">Algunas de mis fotografías</SectionTitle>
-      <p class="portfolio__intro">
-        Momentos de familias de Castellón y alrededores.
-      </p>
-      <Gallery images={portfolioImages} />
-    </div>
-  </section>
-
-  <section class="section studio">
-    <div class="container">
-      <SectionTitle as="h2" eyebrow="El espacio">En el estudio o al aire libre</SectionTitle>
-      <p class="studio__text">
-        Mi estudio es un espacio privado en Castellón, pensado para trabajar con
-        tranquilidad y siempre con cita previa. Es fácil aparcar cerca, algo
-        especialmente práctico cuando venís con niños pequeños.
-      </p>
-      <p class="studio__text">
-        Para algunas sesiones también podemos salir al exterior. Antes de reservar
-        hablamos de lo que buscas y te recomiendo la opción que mejor encaje con vosotros.
-      </p>
-    </div>
-  </section>
-
-  <section class="section instagram">
-    <div class="container">
-      <SectionTitle as="h2" eyebrow="Instagram" align="center">Día a día en el estudio y exteriores</SectionTitle>
-      <ul class="instagram__feed">
-        {
-          feedImages.map((image) => (
-            <li class="instagram__item">
-              <ImageFrame
-                src={image.src}
-                alt={image.alt}
-                loading="lazy"
-                sizes="(min-width: 768px) 30vw, 45vw"
-                class="instagram__image"
-              />
+      <nav class="hola__links" aria-label="Próximos enlaces">
+        <ul role="list" class="hola__link-list">
+          {links.map((label) => (
+            <li>
+              <span class="hola__link" role="link" aria-disabled="true">
+                <span>{label}</span>
+                <span class="hola__soon-badge">Próximamente</span>
+              </span>
             </li>
-          ))
-        }
-      </ul>
-      <div class="instagram__cta">
-        <InstagramCTA label="Sígueme en Instagram" variant="primary" />
-      </div>
-    </div>
-  </section>
+          ))}
+        </ul>
+      </nav>
 
-  {site.google.reviewsUrl !== '' && (
-    <section class="section reviews">
-      <div class="container reviews__inner">
-        <SectionTitle as="h2" align="center">Lo que cuentan las familias</SectionTitle>
-        <a
-          href={site.google.reviewsUrl}
-          class="reviews__cta touch-target"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Ver todas las reseñas en Google&thinsp;↗
-        </a>
-      </div>
-    </section>
-  )}
-
-  <section class="section contact">
-    <div class="container contact__inner">
-      <SectionTitle as="h2" align="center">¿Hablamos de vuestra sesión?</SectionTitle>
-      <p class="contact__text">
-        Cuéntame qué tipo de sesión tienes en mente, cuántos sois y la edad de los
-        peques. Te explicaré las opciones y veremos qué fecha os viene bien.
-      </p>
-      <div class="contact__actions">
-        <WhatsAppCTA label="Escríbeme por WhatsApp" variant="primary" />
-        <InstagramCTA label="Contáctame en Instagram" variant="secondary" target="dm" />
-      </div>
+      <footer class="hola__footer">
+        <p>{site.brand.name}</p>
+      </footer>
     </div>
-  </section>
-</PageLayout>
+  </main>
+</BaseLayout>
 
 <style>
-  /* Presentation and children share a single-column base grid on mobile.
-     They are split here because their desktop layouts differ. */
-  .children__inner {
-    display: grid;
-    gap: var(--space-xl);
-    align-items: center;
-  }
-
-  /* Mobile: natural stacking order text → photo → CTA  */
-  .presentation__inner {
-    display: grid;
-    gap: var(--space-lg);
-    align-items: start;
-  }
-
-  .presentation__text p,
-  .children__text p {
-    margin-block: var(--space-sm) 0;
-    max-width: 56ch;
-    font-family: var(--font-body);
-    color: var(--color-text-secondary);
-    line-height: 1.65;
-  }
-
-  .presentation__cta {
-    /* vertical spacing handled by .presentation__inner gap */
-  }
-
-  .link-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: var(--touch-min);
-    padding-inline: var(--space-md);
-    padding-block: var(--space-2xs);
-    border-radius: 999px;
-    border: 1px solid var(--color-accent);
-    color: var(--color-accent);
-    font-family: var(--font-body);
-    font-weight: 500;
-    text-decoration: none;
-    transition: background-color 160ms ease, color 160ms ease;
-  }
-
-  .link-cta:hover,
-  .link-cta:focus-visible {
-    background-color: var(--color-accent);
-    color: var(--color-bg);
-  }
-
-  .sessions__intro,
-  .portfolio__intro,
-  .instagram__intro {
-    margin-block: var(--space-sm) var(--space-lg);
-    max-width: 60ch;
-    margin-inline: auto;
-    text-align: center;
-    font-family: var(--font-body);
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-  }
-
-  .sessions__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-  }
-
-  .instagram__feed {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-xs);
-  }
-
-  .instagram__item {
-    margin: 0;
-  }
-
-  .instagram__image :global(.image-frame),
-  .instagram__image {
-    aspect-ratio: 1 / 1;
-  }
-
-  .instagram__cta,
-  .contact__actions {
+  /* Retain /hola/'s narrow, centered stack and link rows with shared tokens. */
+  .hola {
+    min-height: 100dvh;
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
     justify-content: center;
-    margin-block-start: var(--space-lg);
+    padding: var(--space-lg) var(--space-md) var(--space-md);
+    background-color: var(--color-bg);
   }
-
-  .contact__inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .contact__text {
-    margin-block: var(--space-sm) 0;
-    max-width: 52ch;
-    font-family: var(--font-body);
-    color: var(--color-text-secondary);
-    line-height: 1.65;
-  }
-
-  /* Studio / outdoor section */
-  .studio__text {
-    max-width: 58ch;
-    font-family: var(--font-body);
-    color: var(--color-text-secondary);
-    line-height: 1.65;
-    margin-block: var(--space-sm) 0;
-  }
-
-  /* Reviews section */
-  .reviews__inner {
+  .hola__inner {
+    width: 100%;
+    max-width: 480px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-md);
+    text-align: center;
   }
-
-  .reviews__cta {
-    display: inline-flex;
+  .hola__header { padding-block-end: var(--space-3xs); }
+  .hola__label {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--space-2xs);
+  }
+  h1 {
+    font-family: var(--font-title);
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    margin: 0;
+  }
+  .hola__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+  .hola__intro p { max-width: 36ch; margin: 0; }
+  .hola__links { width: 100%; }
+  .hola__link-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-surface-2);
+  }
+  .hola__link-list li { border-bottom: 1px solid var(--color-surface-2); }
+  .hola__link {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
     min-height: var(--touch-min);
-    padding-inline: var(--space-md);
-    padding-block: var(--space-2xs);
-    border-radius: 999px;
-    border: 1px solid var(--color-accent);
-    color: var(--color-accent);
-    font-family: var(--font-body);
+    padding: var(--space-xs) var(--space-sm);
+    text-align: start;
+    color: var(--color-text-secondary);
+  }
+  .hola__soon-badge {
+    font-size: 0.6875rem;
     font-weight: 500;
-    text-decoration: none;
-    transition: background-color 160ms ease, color 160ms ease;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background-color: var(--color-surface-2);
+    border-radius: 999px;
+    padding: 2px 8px;
   }
-
-  .reviews__cta:hover,
-  .reviews__cta:focus-visible {
-    background-color: var(--color-accent);
-    color: var(--color-bg);
+  .hola__footer {
+    margin-block-start: var(--space-sm);
+    padding-block-start: var(--space-sm);
+    border-top: 1px solid var(--color-surface-2);
+    width: 100%;
   }
-
-  @media (min-width: 768px) {
-    /* Presentation: two-column layout with photo spanning both text and CTA rows.
-       Visual result is equivalent to the original — text+CTA on the left,
-       photo on the right — now achieved via grid areas. */
-    .presentation__inner {
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-        "text  media"
-        "cta   media";
-      row-gap: var(--space-sm);
-      column-gap: var(--space-xl);
-      align-items: start;
-    }
-
-    .presentation__text  { grid-area: text; }
-    .presentation__media { grid-area: media; }
-    .presentation__cta   { grid-area: cta; }
-
-    .children__inner {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .children__media {
-      order: 1;
-    }
-
-    .sessions__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .instagram__feed {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  .hola__footer p {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    max-width: none;
   }
-
-  @media (min-width: 1024px) {
-    .sessions__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  @media (min-width: 600px) {
+    .hola { padding-block-start: var(--space-xl); }
+    .hola__inner { gap: var(--space-lg); }
   }
 </style>

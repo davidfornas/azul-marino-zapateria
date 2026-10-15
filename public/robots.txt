@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://sandracabedo.es/sitemap-index.xml
