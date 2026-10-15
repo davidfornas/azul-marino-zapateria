@@ -1,0 +1,36 @@
+---
+import SessionPage from '../components/SessionPage.astro';
+import type { FaqItem } from '../components/SessionFAQ.astro';
+
+const faqItems: FaqItem[] = [
+  {
+    q: '¿Tengo que haber hecho antes una sesión contigo?',
+    a: 'No. Podemos conocernos en cualquier momento: en Navidad, durante el embarazo, con vuestro bebé, en una sesión de familia o cuando os apetezca tener nuevas fotografías juntos. Crecer Juntos empieza cuando vosotros queráis.',
+  },
+  {
+    q: '¿Crecer Juntos es un pack de sesiones?',
+    a: 'No. No tienes que contratar un número determinado de sesiones ni decidir ahora cuándo volver. Es mi forma de dar continuidad a las familias que vuelven a confiar en mí a medida que pasan los años.',
+  },
+  {
+    q: '¿Cuándo podemos volver a hacer una sesión?',
+    a: 'Cuando tenga sentido para vosotros. Puede ser por un cumpleaños, porque llega un nuevo hermano, por una celebración, por Navidad o simplemente porque os apetece tener fotografías de cómo sois ahora.',
+  },
+  {
+    q: '¿Las sesiones tienen que ser siempre iguales?',
+    a: 'No. La sesión cambia con vosotros. Un bebé de seis meses no hace lo mismo que un niño de cuatro años, y una sesión de cumpleaños puede ser completamente diferente a una Navidad o a unas fotos en familia.',
+  },
+  {
+    q: '¿Crecer Juntos es solo para niños pequeños?',
+    a: 'No. Precisamente la idea es poder seguir fotografiándolos mientras crecen. Las sesiones también cambian cuando dejan de ser tan pequeños y empiezan a querer fotografías diferentes, incluso esas primeras fotos «como los mayores».',
+  },
+];
+---
+
+<SessionPage
+  slug="crecer-juntos"
+  path="/crecer-juntos/"
+  seoTitle="Crecer juntos: fotografía infantil en Castellón | Sandra Cabedo Fotografía"
+  seoDescription="Acompañamiento fotográfico de vuestra familia en Castellón a lo largo del tiempo: embarazo, nacimiento, primeros meses y las etapas de la infancia."
+  ctaLabel="Consultar disponibilidad"
+  faqItems={faqItems}
+/>

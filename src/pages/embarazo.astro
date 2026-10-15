@@ -1,0 +1,40 @@
+---
+import SessionPage from '../components/SessionPage.astro';
+import type { FaqItem } from '../components/SessionFAQ.astro';
+
+const faqItems: FaqItem[] = [
+  {
+    q: '¿Cuál es el mejor momento para hacer la sesión?',
+    a: 'Normalmente entre las semanas 30 y 34, cuando la barriga ya tiene bastante protagonismo y todavía suele resultar cómodo hacer la sesión. De todas formas, cada embarazo es diferente, así que si estás antes o después, escríbeme y lo vemos.',
+  },
+  {
+    q: '¿Puedo hacer la sesión con mi pareja y mis hijos?',
+    a: 'Sí. Puedes hacer fotografías tú sola y también incluir a tu pareja y a los hermanos mayores. Podemos combinar ambas cosas durante la misma sesión.',
+  },
+  {
+    q: '¿Qué me pongo para la sesión?',
+    a: 'No necesitas comprar ropa específica. Antes de la sesión hablamos de las opciones que tienes y te ayudo a elegir prendas y colores que funcionen bien con el lugar donde vayamos a fotografiar.',
+  },
+  {
+    q: '¿La sesión puede ser en estudio o en exterior?',
+    a: 'Sí. Podemos hacerla en mi estudio privado en Castellón o en exteriores. Son opciones diferentes, así que antes de reservar hablamos de qué tipo de fotografías te gustan más y elegimos la que mejor encaje contigo.',
+  },
+  {
+    q: 'No me siento cómoda delante de la cámara, ¿es un problema?',
+    a: 'En absoluto. No necesitas saber posar ni preparar nada. Durante la sesión te iré guiando para que sepas qué hacer y buscando contigo fotografías en las que te sientas cómoda.',
+  },
+  {
+    q: '¿Puedo hacer la sesión de embarazo y después una newborn?',
+    a: 'Sí. Si quieres guardar las dos etapas podemos organizar primero la sesión de embarazo y volver a encontrarnos cuando nazca el bebé.',
+  },
+];
+---
+
+<SessionPage
+  slug="embarazo"
+  path="/embarazo/"
+  seoTitle="Fotografía de embarazo en Castellón | Sandra Cabedo Fotografía"
+  seoDescription="Fotografía de embarazo en Castellón, natural y emocional, que celebra la espera con retratos serenos antes de conocer al bebé."
+  ctaLabel="Reserva tu sesión"
+  faqItems={faqItems}
+/>

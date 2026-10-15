@@ -1,0 +1,40 @@
+---
+import SessionPage from '../components/SessionPage.astro';
+import type { FaqItem } from '../components/SessionFAQ.astro';
+
+const faqItems: FaqItem[] = [
+  {
+    q: '¿Dónde podemos hacer la sesión?',
+    a: 'Podemos hacerla en mi estudio privado en Castellón o en exteriores. Antes de reservar hablamos de la edad de los niños, la época del año y el tipo de fotografías que os apetece tener para elegir la opción que mejor encaje.',
+  },
+  {
+    q: '¿Y si mis hijos no quieren hacerse fotos?',
+    a: 'Es más habitual de lo que parece. No necesito que estén quietos ni pendientes de la cámara todo el tiempo. Les damos tiempo para conocerme, jugar y entrar en la sesión poco a poco. Si algo no funciona, cambiamos de idea y seguimos.',
+  },
+  {
+    q: '¿A partir de qué edad podemos hacer una sesión familiar?',
+    a: 'A cualquier edad. La sesión cambia mucho dependiendo de si venís con un bebé, un niño de tres años o hijos más mayores, y precisamente por eso la adaptamos a vuestra familia.',
+  },
+  {
+    q: '¿Qué ropa nos ponemos?',
+    a: 'No hace falta ir todos vestidos iguales. Lo que mejor suele funcionar es elegir prendas que combinen entre sí, con colores suaves y sin estampados o logotipos que llamen demasiado la atención. Antes de la sesión puedo ayudaros si tenéis dudas con lo que habéis elegido.',
+  },
+  {
+    q: '¿Pueden participar los abuelos u otros miembros de la familia?',
+    a: 'Claro. Si queréis incluir a los abuelos u otros miembros de la familia, contádmelo cuando hablemos de la sesión para poder organizarla teniendo en cuenta cuántos seréis.',
+  },
+  {
+    q: '¿Podemos traer a nuestra mascota?',
+    a: 'Sí. Las mascotas también forman parte de la familia. Contádmelo antes de la sesión para que podamos elegir el lugar y plantearla teniendo en cuenta que vendrá con vosotros.',
+  },
+];
+---
+
+<SessionPage
+  slug="familia"
+  path="/familia/"
+  seoTitle="Sesiones familiares en Castellón | Sandra Cabedo Fotografía"
+  seoDescription="Fotografía de familia en Castellón centrada en los vínculos, el juego y los momentos espontáneos por encima de las poses."
+  ctaLabel="Reserva tu sesión"
+  faqItems={faqItems}
+/>

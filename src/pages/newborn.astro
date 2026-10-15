@@ -1,0 +1,40 @@
+---
+import SessionPage from '../components/SessionPage.astro';
+import type { FaqItem } from '../components/SessionFAQ.astro';
+
+const faqItems: FaqItem[] = [
+  {
+    q: '¿Cuándo es mejor hacer la sesión?',
+    a: 'Depende del tipo de fotografías que quieras. Si buscas guardar esos primeros días, lo ideal es hacerla durante las primeras semanas. Pero no pasa nada si ese momento ya ha pasado: también podemos hacer sesiones a los 3, 6, 9 o 12 meses y adaptarlas a lo que el bebé hace en cada etapa.',
+  },
+  {
+    q: '¿Cuándo debería reservar?',
+    a: 'Si quieres hacer la sesión durante las primeras semanas, lo mejor es escribirme durante el embarazo. Tendremos en cuenta la fecha prevista de parto y, cuando nazca el bebé, terminamos de concretar el día. Para sesiones de bebés más mayores podemos buscar fecha directamente.',
+  },
+  {
+    q: '¿La sesión puede hacerse en casa?',
+    a: 'Sí. Especialmente durante las primeras semanas podemos hacer la sesión en vuestra propia casa si es lo que mejor encaja con vosotros. También podemos hacerla en mi estudio privado en Castellón, donde trabajamos con espacios sencillos y con sensación de hogar.',
+  },
+  {
+    q: '¿Qué pasa si mi bebé no duerme o necesita comer?',
+    a: 'No pasa nada. No necesitamos que duerma durante toda la sesión. Si necesita comer, cambiarse, estar en brazos o descansar, paramos y continuamos después. Nos adaptamos a su ritmo.',
+  },
+  {
+    q: '¿Pueden participar los padres y los hermanos?',
+    a: 'Sí. Aunque el bebé tenga mucho protagonismo, también habrá fotografías con vosotros y con sus hermanos si los hay.',
+  },
+  {
+    q: '¿Qué ropa debemos llevar?',
+    a: 'No hace falta comprar nada especial. Suelo recomendar prendas sencillas y colores suaves o neutros, evitando estampados grandes o elementos que distraigan. Para el bebé podéis traer su propia ropa, mantitas o cualquier cosa vuestra que os apetezca utilizar. Antes de la sesión podemos hablar de lo que tenéis y os ayudo a elegir.',
+  },
+];
+---
+
+<SessionPage
+  slug="newborn"
+  path="/newborn/"
+  seoTitle="Fotografía newborn en Castellón | Sandra Cabedo Fotografía"
+  seoDescription="Fotografía newborn en Castellón: los primeros días y meses del bebé con calma, intimidad y naturalidad."
+  ctaLabel="Reserva tu sesión"
+  faqItems={faqItems}
+/>
