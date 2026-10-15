@@ -11,6 +11,8 @@ npm ci
 npm run dev
 ```
 
+The GitHub Pages project base is `/azul-marino-zapateria/` in `astro.config.mjs`. Use that path when opening development or preview servers. Styles, logos and favicons must include this prefix. If moving to a custom domain at its root, update the base and its regression test together.
+
 ## Validation
 
 ```sh
