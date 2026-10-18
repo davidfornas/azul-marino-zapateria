@@ -1,0 +1,88 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+// The real client photograph can be added here without changing either page.
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+  '../images/shop/exterior.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const exterior = Object.values(photos)[0]?.default;
+---
+
+<figure class="shop-exterior" data-shop-exterior>
+  {
+    exterior ? (
+      <Image
+        src={exterior}
+        alt="Fachada de Azul Marino Zapatería en Calle Maestro Ripollés, 16, Castellón de la Plana"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 768px) 45vw, 90vw"
+        loading="lazy"
+      />
+    ) : (
+      <div class="shop-exterior__pending">
+        <span class="shop-exterior__line" aria-hidden="true" />
+        <p class="eyebrow">Nuestro lugar en Castellón</p>
+        <p class="shop-exterior__address">
+          Maestro Ripollés,
+          <>
+            <br />
+            <em>número 16.</em>
+          </>
+        </p>
+        <span class="shop-exterior__line" aria-hidden="true" />
+        <p class="shop-exterior__notice">
+          Fotografía real del exterior pendiente de incorporar.
+        </p>
+      </div>
+    )
+  }
+  <figcaption>
+    {
+      exterior
+        ? 'Azul Marino Zapatería · Castellón de la Plana'
+        : 'Espacio reservado para la fotografía de nuestra fachada.'
+    }
+  </figcaption>
+</figure>
+<style>
+  .shop-exterior {
+    margin: 0;
+  }
+  .shop-exterior :global(img) {
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+  .shop-exterior__pending {
+    min-height: clamp(300px, 36vw, 440px);
+    background: var(--color-surface-2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    gap: 1rem;
+  }
+  .shop-exterior__pending .eyebrow {
+    color: var(--color-text);
+  }
+  .shop-exterior__line {
+    height: 1px;
+    width: 36px;
+    background: var(--color-accent);
+  }
+  .shop-exterior__address {
+    font: 400 clamp(1.8rem, 4vw, 3rem) / 1.15 var(--font-title);
+  }
+  .shop-exterior__notice {
+    font-size: 0.75rem;
+    max-width: 30ch;
+  }
+  figcaption {
+    font-size: 0.7rem;
+    margin-top: 0.6rem;
+  }
+</style>

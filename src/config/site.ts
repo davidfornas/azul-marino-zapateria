@@ -42,7 +42,11 @@ export const site: SiteConfig = {
     tagline: 'Más de 30 años de calidad, confianza y estilo.',
     locationLabel: 'Castellón de la Plana',
   },
-  nav: [{ label: 'Inicio', path: '/' }],
+  nav: [
+    { label: 'Inicio', path: '/' },
+    { label: 'Colecciones', path: '/colecciones/' },
+    { label: 'Nuestra tienda', path: '/nuestra-tienda/' },
+  ],
   whatsapp: {
     phone: '+34 641 60 62 10',
     message: 'Hola, he visto vuestra página web y me gustaría recibir información sobre vuestro calzado.',
@@ -51,7 +55,7 @@ export const site: SiteConfig = {
   google: { reviewsUrl: '', leaveReviewUrl: '' },
   contact: {
     address: 'Calle Maestro Ripollés, 16',
-    postalAddress: '12003 Castellón de la Plana, Spain',
+    postalAddress: '12003 Castellón de la Plana, España',
     mapsUrl: 'https://maps.app.goo.gl/QNKenuSytVNHQoxv5?g_st=aw',
     phone: '+34964039447',
     phoneLabel: '964 03 94 47',

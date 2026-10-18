@@ -1,132 +1,100 @@
 ---
+import { Image } from 'astro:assets';
+import { logo } from '../config/artwork';
 import { site } from '../config/site';
 import { withBase } from '../lib/url';
-import WhatsAppCTA from './WhatsAppCTA.astro';
-import InstagramCTA from './InstagramCTA.astro';
-import { Image } from 'astro:assets';
-
-// Full-logo options for the footer. Switch by commenting/uncommenting one line.
-import footerLogo from '../images/logos/logo-handwritten.png';
-//import footerLogo from '../images/logos/logo-soft-typography.png';
-// import footerLogo from '../images/logos/two-typographies-logo.png';
-// import footerLogo from '../images/logos/two-typographies-logo-big.png';
-
-interface Props {
-  showSocial?: boolean;
-}
-
-const { showSocial = false } = Astro.props;
-const currentYear = new Date().getFullYear();
-
-const legalLinks = [
-  { label: 'Aviso legal', href: withBase('/aviso-legal/') },
-  { label: 'Política de privacidad', href: withBase('/politica-de-privacidad/') },
-];
+import { whatsappUrl } from '../lib/whatsapp';
 ---
 
 <footer class="site-footer">
-  <div class="container site-footer__inner">
-    <Image class="site-footer__logo" src={footerLogo} alt="Sandra Cabedo Fotografía" width={280} height={93} loading="lazy" />
-
-    <p class="site-footer__tagline">{site.brand.tagline}</p>
-
-    {showSocial && (
-      <div class="site-footer__social">
-        <InstagramCTA label="Instagram" variant="secondary" />
-        <WhatsAppCTA label="Hablemos por WhatsApp" variant="secondary" />
-      </div>
-    )}
-
-    <nav class="site-footer__legal" aria-label="Enlaces legales">
-      <ul>
-        {site.google.reviewsUrl !== '' && (
-          <li>
-            <a href={site.google.reviewsUrl} target="_blank" rel="noopener noreferrer">
-              Opiniones en Google
-            </a>
-          </li>
-        )}
-        {
-          legalLinks.map((link) => (
-            <li>
-              <a href={link.href}>{link.label}</a>
-            </li>
-          ))
-        }
+  <div class="container footer-grid">
+    <div>
+      <Image
+        src={logo}
+        alt={site.brand.name}
+        width={210}
+        loading="lazy"
+        class="footer-logo"
+      /><p class="footer-tagline">{site.brand.tagline}</p>
+    </div>
+    <div>
+      <p class="footer-label">Ven a vernos</p><address>
+        {site.contact.address}<br />{site.contact.postalAddress}
+      </address><a
+        href={site.contact.mapsUrl}
+        target="_blank"
+        rel="noopener noreferrer">Cómo llegar</a>
+    </div>
+    <nav aria-label="Contacto y redes">
+      <p class="footer-label">Seguimos en contacto</p><ul role="list">
+        <li>
+          <a href={`tel:${site.contact.phone}`}>{site.contact.phoneLabel}</a>
+        </li><li>
+          <a href={whatsappUrl()!} target="_blank" rel="noopener noreferrer"
+            >WhatsApp</a>
+        </li><li>
+          <a
+            href={site.instagram.profileUrl}
+            target="_blank"
+            rel="noopener noreferrer">Instagram</a>
+        </li><li><a href={withBase('/hola/')}>Todos nuestros enlaces</a></li>
       </ul>
     </nav>
-
-    <p class="site-footer__copyright">
-      © {currentYear} {site.brand.name}
-    </p>
+  </div>
+  <div class="container footer-bottom">
+    <span>© {new Date().getFullYear()} {site.brand.name}</span><span
+      >Tu zapatería en Castellón</span>
   </div>
 </footer>
-
 <style>
   .site-footer {
-    margin-top: var(--space-2xl);
-    padding-block: var(--space-xl);
-    background-color: var(--color-surface);
+    padding-block: 3.5rem 1rem;
     border-top: 1px solid var(--color-surface-2);
   }
-
-  .site-footer__inner {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    align-items: center;
-    text-align: center;
+  .footer-grid {
+    display: grid;
+    gap: 2rem;
   }
-
-  .site-footer__logo {
-    width: auto;
-    max-width: 280px;
+  .footer-logo {
+    width: 190px;
     height: auto;
   }
-
-  .site-footer__tagline {
-    font-family: var(--font-body);
-    color: var(--color-text-secondary);
-    /* Pull up to offset the transparent whitespace baked into the logo PNG. */
-    margin: calc(-1 * var(--space-md)) 0 0;
+  .footer-tagline {
+    font-size: 0.85rem;
+    max-width: 28ch;
+    margin-top: 0.75rem;
   }
-
-  .site-footer__social {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    justify-content: center;
+  .footer-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
   }
-
-  .site-footer__legal ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  address {
+    font-style: normal;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
   }
-
-  .site-footer__legal a {
+  a {
     display: inline-flex;
     align-items: center;
-    min-height: var(--touch-min);
-    font-family: var(--font-body);
-    color: var(--color-text-secondary);
-    text-decoration: none;
-  }
-
-  .site-footer__legal a:hover,
-  .site-footer__legal a:focus-visible {
-    color: var(--color-accent-strong);
-    text-decoration: underline;
-  }
-
-  .site-footer__copyright {
-    font-family: var(--font-body);
+    min-height: 44px;
     font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    margin: 0;
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid var(--color-surface-2);
+    font-size: 0.72rem;
+  }
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1.2fr 1fr 1fr;
+    }
   }
 </style>

@@ -1,0 +1,30 @@
+---
+import { collections } from '../config/collections';
+import CollectionCard from './CollectionCard.astro';
+const { detail = false } = Astro.props;
+---
+
+<div class="collection-grid">
+  {
+    collections.map((collection) => (
+      <CollectionCard collection={collection} detail={detail} />
+    ))
+  }
+</div>
+<style>
+  .collection-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem 1.5rem;
+  }
+  @media (min-width: 650px) {
+    .collection-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1000px) {
+    .collection-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

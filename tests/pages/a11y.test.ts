@@ -29,6 +29,9 @@ const distDir = join(projectRoot, 'dist');
 // Home page and one representative session page.
 const pages = [
   { name: 'Home', file: join(distDir, 'index.html') },
+  { name: 'Colecciones', file: join(distDir, 'colecciones/index.html') },
+  { name: 'Nuestra tienda', file: join(distDir, 'nuestra-tienda/index.html') },
+  { name: 'Link hub', file: join(distDir, 'hola/index.html') },
 ] as const;
 
 function loadIntoDocument(html: string): void {
@@ -40,7 +43,10 @@ function loadIntoDocument(html: string): void {
   document.documentElement.innerHTML = html
     .replace(/^[\s\S]*?<html[^>]*>/i, '')
     .replace(/<\/html>[\s\S]*$/i, '')
-    .replace(/<link\b[^>]*\brel="stylesheet"[^>]*>/gi, '');
+    .replace(/<link\b[^>]*\brel="stylesheet"[^>]*>/gi, '')
+    // Do not fetch the third-party map in this offline DOM fixture. Its real
+    // URL is independently checked against the supplied address in boutique.test.ts.
+    .replace(/(<iframe\b[^>]*\bsrc=)"[^"]*"/gi, '$1"about:blank"');
 
   // Preserve lang from the source <html> so the html-has-lang rule can pass.
   const langMatch = /<html[^>]*\blang="([^"]*)"/i.exec(html);
@@ -53,6 +59,9 @@ async function runAxe(html: string): Promise<axe.AxeResults> {
   loadIntoDocument(html);
   return axe.run(document, {
     resultTypes: ['violations'],
+    // happy-dom cannot traverse the remote Maps browsing context. Audit the
+    // parent document (including the iframe's title) without its third-party contents.
+    iframes: false,
     rules: Object.fromEntries(
       LAYOUT_DEPENDENT_RULES.map((id) => [id, { enabled: false }]),
     ),

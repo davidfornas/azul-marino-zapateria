@@ -1,126 +1,185 @@
 ---
-import { Image } from 'astro:assets';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../config/site';
-import { logo } from '../config/artwork';
+import PageLayout from '../layouts/PageLayout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import CollectionGrid from '../components/CollectionGrid.astro';
+import ShopExterior from '../components/ShopExterior.astro';
+import { withBase } from '../lib/url';
 import { whatsappUrl } from '../lib/whatsapp';
-
-const links = [
-  { label: 'Escríbenos por WhatsApp', href: whatsappUrl()!, primary: true, external: true },
-  { label: 'Síguenos en Instagram', href: site.instagram.profileUrl, external: true },
-  { label: 'Cómo llegar', href: site.contact.mapsUrl, external: true },
-  { label: `Llámanos · ${site.contact.phoneLabel}`, href: `tel:${site.contact.phone}`, external: false },
-];
+import { site } from '../config/site';
 ---
 
-<BaseLayout
-  title={site.brand.name}
-  description="Azul Marino Zapatería en Castellón de la Plana. Más de 30 años de calidad, confianza y estilo. Visítanos en Calle Maestro Ripollés, 16."
+<PageLayout
+  title="Azul Marino Zapatería · Calzado en Castellón"
+  description="Tu zapatería en Castellón de la Plana. Más de 30 años de calidad, confianza y estilo. Descubre Azul Marino y ven a vernos en Maestro Ripollés, 16."
   path="/"
   activePath="/"
 >
-  <main id="main" class="hola">
-    <div class="hola__inner">
-      <header class="hola__header">
-        <h1 class="visually-hidden">{site.brand.name}</h1>
-        <Image src={logo} alt={site.brand.name} class="hola__logo" loading="eager" fetchpriority="high" />
-        <p class="hola__slogan">{site.brand.tagline}</p>
-      </header>
-
-      <nav class="hola__links" aria-label="Contacta y visítanos">
-        <ul role="list" class="hola__link-list">
-          {links.map(({ label, href, primary, external }) => (
-            <li>
-              <a href={href} class:list={['hola__link', { 'hola__link--primary': primary }]}
-                target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
-                <span>{label}</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-                  <path d={external ? 'M7 17 17 7M7 7h10v10' : 'M4 12h16m-6-6 6 6-6 6'} />
-                </svg>
-                {external && <span class="visually-hidden"> (se abre en otra pestaña)</span>}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <a class="hola__reel" href={site.presentationUrl} target="_blank" rel="noopener noreferrer">
-        Conócenos
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10" /></svg>
-        <span class="visually-hidden"> (se abre en otra pestaña)</span>
-      </a>
-
-      <footer class="hola__footer">
-        <address>{site.contact.address}<br />{site.contact.postalAddress}</address>
-      </footer>
+  <section class="hero container">
+    <div class="hero__copy">
+      <p class="eyebrow">Azul Marino · Castellón</p><h1 class="editorial-title">
+        Cada paso,<br /><em>un poco de ti.</em>
+      </h1><p class="lede">
+        Hay formas de vestir que hablan de ti.<br />Y un buen paso por el que
+        empezar.
+      </p><a class="button" href={withBase('/colecciones/')}
+        >Explora las colecciones <span aria-hidden="true">&nbsp; →</span></a
+      ><p class="hero__signature">{site.brand.tagline}</p>
     </div>
-  </main>
-</BaseLayout>
-
+    <figure class="hero__visual">
+      <img
+        src={withBase('/images/placeholders/calzado-cotidiano.svg')}
+        width="800"
+        height="1000"
+        alt="Composición editorial abstracta de ejemplo; fotografía de calzado pendiente."
+        loading="eager"
+        fetchpriority="high"
+      /><figcaption>
+        Imagen provisional · fotografía de calzado pendiente
+      </figcaption>
+    </figure>
+  </section>
+  <section class="intro boutique-section">
+    <div class="container intro__inner">
+      <p class="eyebrow">Cerca de ti. Con estilo propio.</p><h2>
+        Una zapatería de aquí.<br /><em>Una forma muy tuya de caminar.</em>
+      </h2><p>
+        Somos Azul Marino Zapatería, en Castellón de la Plana. Un lugar al que
+        venir, mirar con calma y encontrar tu próximo paso. Nos encantará
+        conocerte en nuestra tienda de Maestro Ripollés.
+      </p><a class="text-link" href={withBase('/nuestra-tienda/')}
+        >Conoce nuestra tienda <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+  <section class="boutique-section">
+    <div class="container">
+      <div class="section-heading">
+        <SectionTitle eyebrow="Un primer vistazo"
+          >Distintas formas de ir contigo.</SectionTitle
+        ><a class="text-link" href={withBase('/colecciones/')}
+          >Ver las colecciones <span aria-hidden="true">→</span></a>
+      </div><CollectionGrid /><p class="provisional-note collection-note">
+        Categorías e imágenes de ejemplo. Estamos preparando las colecciones
+        reales; estas propuestas no indican productos disponibles.
+      </p>
+    </div>
+  </section>
+  <section class="boutique-section shop-section">
+    <div class="container split">
+      <ShopExterior /><div class="section-copy">
+        <SectionTitle eyebrow="Nos vemos en Castellón"
+          >El mejor encuentro<br />es en la tienda.</SectionTitle
+        ><p class="lede">
+          Algunas cosas se disfrutan más de cerca. Pásate por Azul Marino y
+          descubre nuestra zapatería a tu ritmo.
+        </p><p>{site.contact.address}<br />{site.contact.postalAddress}</p><a
+          class="text-link"
+          href={withBase('/nuestra-tienda/')}
+          >Nuestra tienda y contacto <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+  <section class="boutique-section">
+    <div class="container visit">
+      <p class="eyebrow">Damos el siguiente paso</p><h2>
+        ¿Vienes a conocernos?
+      </h2><p>
+        Te esperamos en Maestro Ripollés, 16.<br />Si prefieres escribirnos
+        antes, estamos al otro lado.
+      </p><div class="button-row">
+        <a
+          class="button"
+          href={site.contact.mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer">Cómo llegar</a
+        ><a
+          class="button button--outline"
+          href={whatsappUrl()!}
+          target="_blank"
+          rel="noopener noreferrer">Hablemos por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
 <style>
-  /* Preserve /hola/'s compact, centered stack using shared design tokens. */
-  .hola {
-    min-height: 100dvh;
-    display: flex;
-    justify-content: center;
-    padding: var(--space-lg) var(--space-md) var(--space-md);
-    background: var(--color-bg);
+  .hero {
+    display: grid;
+    gap: 2rem;
+    padding-block: 2.5rem;
+    align-items: center;
   }
-  .hola__inner {
+  .hero__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  .hero__copy em {
+    font-weight: 400;
+  }
+  .hero__signature {
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+  }
+  .hero__visual {
+    margin: 0;
+  }
+  .hero__visual img {
     width: 100%;
-    max-width: 440px;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+  .hero__visual figcaption {
+    font-size: 0.65rem;
+    margin-top: 0.5rem;
+  }
+  .intro {
+    border-block: 1px solid var(--color-surface-2);
+  }
+  .intro__inner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-md);
+    gap: 1.5rem;
     text-align: center;
   }
-  .hola__header { width: 100%; }
-  h1 { font-size: 1.75rem; margin: 0 0 var(--space-md); }
-  .hola__logo { width: min(100%, 320px); height: auto; margin-inline: auto; }
-  .hola__slogan {
-    margin: var(--space-sm) auto 0;
-    max-width: 31ch;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--color-text);
-    text-wrap: balance;
+  .intro h2 {
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3.3rem);
   }
-  .hola__links { width: 100%; }
-  .hola__link-list { display: flex; flex-direction: column; gap: var(--space-xs); }
-  .hola__link {
+  .intro p:not(.eyebrow) {
+    max-width: 57ch;
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+  .collection-note {
+    margin-top: 2rem;
+  }
+  .shop-section {
+    background: #f5e8dc;
+  }
+  .visit {
     display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-xs);
-    min-height: 56px;
-    padding: var(--space-sm) var(--space-md);
-    border: 1px solid var(--color-accent);
-    border-radius: 8px;
-    color: var(--color-accent);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    text-align: start;
-    text-decoration: none;
+    text-align: center;
   }
-  .hola__link svg { flex-shrink: 0; }
-  .hola__link--primary { background: var(--color-accent); color: var(--color-bg); }
-  .hola__link:hover { background: var(--color-surface-2); color: var(--color-accent); }
-  .hola__link--primary:hover { background: var(--color-accent-strong); color: var(--color-bg); }
-  .hola__reel {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2xs);
-    min-height: var(--touch-min);
-    padding-inline: var(--space-xs);
-    color: var(--color-text-secondary);
-    font-size: 0.9375rem;
+  .visit h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
   }
-  .hola__footer {
-    width: 100%;
-    border-top: 1px solid var(--color-surface-2);
-    padding-block: var(--space-md);
+  @media (min-width: 768px) {
+    .hero {
+      grid-template-columns: 1.05fr 1fr;
+      gap: 4rem;
+      padding-block: 3.5rem;
+    }
+    .hero__visual {
+      max-height: 640px;
+    }
+    .hero__visual img {
+      max-height: 600px;
+    }
   }
-  address { font-style: normal; font-size: 0.8125rem; line-height: 1.7; color: var(--color-text); }
-  @media (min-width: 600px) { .hola { padding-block-start: var(--space-xl); } }
 </style>

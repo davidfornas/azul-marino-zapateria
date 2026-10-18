@@ -1,0 +1,89 @@
+---
+import { withBase } from '../lib/url';
+import type { Collection } from '../config/collections';
+const { collection, detail = false } = Astro.props as {
+  collection: Collection;
+  detail?: boolean;
+};
+---
+
+<article class="collection-card" id={detail ? collection.id : undefined}>
+  <a
+    class="collection-card__image"
+    href={detail
+      ? withBase('/nuestra-tienda/')
+      : `${withBase('/colecciones/')}#${collection.id}`}
+    aria-label={detail
+      ? `${collection.title}: consulta en tienda`
+      : `Explorar ${collection.title}`}
+  >
+    <img
+      src={withBase(collection.image)}
+      alt={collection.alt}
+      width="800"
+      height="1000"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="collection-card__badge">Ejemplo · imagen provisional</span>
+  </a>
+  <div class="collection-card__heading">
+    <h3>{collection.title}</h3><span aria-hidden="true"
+      >{collection.number}</span>
+  </div>
+  <p>{detail ? collection.description : collection.subtitle}</p>
+  {
+    detail && (
+      <a class="text-link" href={withBase('/nuestra-tienda/')}>
+        Consulta en tienda <span aria-hidden="true">→</span>
+      </a>
+    )
+  }
+</article>
+<style>
+  .collection-card {
+    min-width: 0;
+    scroll-margin-top: 2rem;
+  }
+  .collection-card__image {
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+  .collection-card__badge {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    width: fit-content;
+    background: var(--color-bg);
+    padding: 0.35rem 0.65rem;
+    font-size: 0.65rem;
+    color: var(--color-text);
+  }
+  .collection-card__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+  h3 {
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+  .collection-card__heading span {
+    font-size: 0.75rem;
+  }
+  p {
+    font-size: 0.875rem;
+    line-height: 1.8;
+    margin-top: 0.5rem;
+  }
+</style>

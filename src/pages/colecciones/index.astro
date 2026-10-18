@@ -1,0 +1,60 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import CollectionGrid from '../../components/CollectionGrid.astro';
+import { withBase } from '../../lib/url';
+---
+
+<PageLayout
+  title="Colecciones · Azul Marino Zapatería"
+  description="Un primer vistazo al universo de Azul Marino Zapatería. Categorías de calzado de ejemplo mientras preparamos las colecciones y fotografías reales."
+  path="/colecciones/"
+  activePath="/colecciones/"
+>
+  <section class="boutique-section">
+    <div class="container collection-intro">
+      <p class="eyebrow">El universo Azul Marino</p><h1 class="editorial-title">
+        Un estilo.<br /><em>Muchas formas de llevarlo.</em>
+      </h1><p class="lede">
+        Para cada día, para ese momento, para ti. Un primer recorrido por lo que
+        queremos compartir contigo.
+      </p><p class="provisional-note">
+        Esta es una muestra editorial provisional: las categorías, imágenes y
+        descripciones son ejemplos. No representan productos, marcas ni
+        existencias de nuestra tienda.
+      </p>
+    </div>
+  </section>
+  <section
+    class="container collection-body"
+    aria-labelledby="collections-title"
+  >
+    <h2 id="collections-title" class="visually-hidden">
+      Categorías de ejemplo
+    </h2><CollectionGrid detail /><div class="collection-end">
+      <p>La mejor forma de descubrir Azul Marino es venir a vernos.</p><a
+        class="button"
+        href={withBase('/nuestra-tienda/')}>Visita nuestra tienda →</a>
+    </div>
+  </section>
+</PageLayout>
+<style>
+  .collection-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .collection-body {
+    padding-bottom: 5rem;
+  }
+  .collection-end {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    border-top: 1px solid var(--color-surface-2);
+    margin-top: 3rem;
+    padding-top: 2rem;
+  }
+</style>

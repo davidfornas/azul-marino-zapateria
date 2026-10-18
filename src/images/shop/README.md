@@ -1,0 +1,1 @@
+Add the real client exterior photograph here as exterior.jpg, exterior.jpeg, exterior.png or exterior.webp. Use one file. The shared ShopExterior component uses it on the homepage and Nuestra tienda. Until then, both pages explicitly identify the missing photograph. Never substitute a stock storefront.

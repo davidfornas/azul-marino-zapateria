@@ -13,7 +13,7 @@
   --color-accent-strong: #046180;
 
   /* --- Typography families (Req 1.5) --- */
-  --font-title: "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-title: Georgia, "Times New Roman", serif;
   --font-body: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
 
   /* --- Spacing scale --- */
